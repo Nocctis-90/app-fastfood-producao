@@ -1,32 +1,33 @@
-# Aplicação Fast Food
-Tech Challenge POSTECH FIAP
+# Microserviço Fast Food - Produção
 
-**Diagrama**
+Seja bem vindo(a)!
 
-https://app.diagrams.net/#G1jbIrDPWH3BY4NgY_mvSWEC9SoYqx3zQu
+## Desenvolvedores
+ 
+ - [Caike Burgos](https://github.com/caikeburgos)
+ - [Pedro Ramalho](https://github.com/pedroph23)
+ - [Marcus Gomes](https://github.com/mvgv)
+ - [Maria Eulina Melo](https://github.com/xLinaMeloox)
 
----
-**Video do Projeto funcionando**
+ 
+## Ferramentas
 
-https://www.youtube.com/watch?v=uQ2c_eYHDds&ab_channel=VitorAvanco
-
----
-
-
-## Stack
+A aplicação esta recheada de ferramentas, como:
 - Java 17
 - Spring Boot
 - Docker
+- Kubernetes
 - Maven
 - Postgres
 - Swagger
-- K8S
     
 
-## Tools
+Para iniciarmos, precisamos de algumas ferramentas para poder incializar a aplicação.
+## Ferramentas Obrigatórias
 - Docker 
 - Git
 - Docker Compose
+- Kubernetes
 
 
 Para poder estar instalando essas ferramentas, siga o link de instalação.
@@ -34,84 +35,63 @@ Para poder estar instalando essas ferramentas, siga o link de instalação.
 - **Windows**
    - https://docs.docker.com/desktop/install/windows-install/ [Docker & Docker Composer]
    - https://git-scm.com/download/win [Git]
+   - https://kubernetes.io/docs/setup/ [Kubernetes]
  - **Linux**
    - https://docs.docker.com/desktop/install/linux-install/ [Docker]
    - https://git-scm.com/book/pt-br/v2/Come%C3%A7ando-Instalando-o-Git [Git]
    - https://docs.docker.com/compose/install/linux/ [Docker Compose]
+   - https://kubernetes.io/docs/setup/ [Kubernetes]
  - **Mac**
    - https://docs.docker.com/desktop/install/mac-install/ [Docker & Docker Composer]
    - https://git-scm.com/download/mac [Git]
+   - https://kubernetes.io/docs/setup/ [Kubernetes]
 
----
+Logo após de ter instalado as ferramentas, agora podemos inicializar a nossa aplicação com o cluster kubernetes
 
-### Como rodar a aplicação via kubernetes?
+## Inicializando a aplicação com o Kubernetes
 
-Para levantar a API junto com o banco de dados Postgres, execute na pasta raiz:
 
-```bash
-kubectl apply -f infra/kubernetes
-```
+> ⚠️ **Atenção!** 
+>  Não é necessário alterar ou fornecer variáveis de ambiente para conectar com o banco
+>  Verifique no arquivo ".app/mvnw", se EOL está configurado como "LF". 
 
-**Importante: Caso utilize Docker Desktop é necessário habilitar o Kubernetes nas configurações.**
+**Para executar o projeto, siga os passos abaixo:**
+- Executar a Build de Produção:
+    > ⚠️ **Atenção! Para executar, é necessário estar dentro da raiz do projeto.**
+    Dentro da raiz do projeto execute o comando a seguir:
 
-Depois de executada, a aplicação estará disponível para uso em: 
+    ```sh
+    kubectl apply -f infra/prod
+    ```
+    Depois de executada, é necessário verificar se os pods estão prontos, através do comando kubectl get pods, a partir dai a aplicação estará disponível para uso em: http://localhost:8080/swagger-ui/index.html#/
+    Se desejar, é possível também, realizar as chamadas via Postman, Insomnia ou outro app desejado, utilizando a Collection ("AppfastfoodCollection") disponível na raíz do projeto.
 
-http://localhost:8080/swagger-ui/index.html#/
+    > Como inserir informações na aplicação:
+      - **Opcional** Criar Clientes,
+      - Cadastrar Produtos,
+      - Criar Pedidos.
+      Não é possível criar um pedido, caso não exista produtos cadastrados.
 
---
+- Caso deseje compilar e executar o projeto em ambiente de desenvolvimento, execute os comando abaixo:
+    > ⚠️ **Atenção! Para executar, é necessário estar dentro da raiz do projeto.**
+    Esse comando compila o código java, executa o jar do monolito e gera uma imagem nova, usem quando forem testar alteracoes do codigo:
 
-Endpoint de Health: 
+    ```sh
+    docker-compose -f ./infra/dev/docker-compose.yaml up 
+    ```
 
-http://localhost:8080/healthCheck
+## Inicializando a aplicação sem o container
 
----
+Para poder estar rodando em maquina local sem o container docker e sem o Postgres, pois estará utiliza o banco H2. Deve realizar a instalação das seguintes ferramentas:
 
-## Inicializando a aplicação com o container Docker
+- Amazon Corretto 17 JDK
+- Maven
+- Lombok
 
-## Executando o projeto
-
-### Build de Produção:
-
-Para executar, é necessário estar dentro da raiz do projeto.
-Execute a imagem com o jar compilado:
-
+#### Baixando as dependência
+Comando para baixar as dependências do Maven:
 ```sh
-docker-compose -f ./infra/docker/docker-compose.yaml up
+mvn clean install 
 ```
 
-Depois de executada, a aplicação estará disponível para uso em: http://localhost:8080/swagger-ui/index.html#/
-
----
-
-**Utilize a Collection ("Api AppFastFood.postman_collection.json") disponível na raíz do projeto para interagir com a aplicação**
-
-- Cadatrar Clientes
-- Verificar dados do cliente
-
-- Listar Produtos
-- Cadastrar Produto
-- Editar Produto
-- Excluir Produto
-
-- Listar Pedido
-- Criar Pedido
-- Alterar Status do Pedido
-
-- Verificar Status do Pagamento
-- Weebhook para efetuar pagamento
-
-- Healthcheck
-
-
-**Não é possível criar um pedido, caso não exista produtos cadastrados.**
-**Não é possível avançar o status de um pedido sem o pagamento estar confirmado.**
-
----
-
-## Desenvolvedores
- - Caio Cezar Santos Rodrigues
- - Israel Sifoleli Junior
- - Jonas Aparecido Monteiro
- - José Vitor Alves Avanço
- - Raul Munhoz
- 
+Após o sucesso a da instalação, poderá inicializar a aplicação!

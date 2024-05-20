@@ -1,9 +1,9 @@
 FROM amazoncorretto:17-alpine-jdk
 
-WORKDIR /app
-RUN  rm -rf /app/target/*
-COPY ./app /app
-RUN  /bin/sh ./mvnw dependency:purge-local-repository clean install
-RUN mv /app/target/*.jar /app/app-fastfood-1.jar
-CMD ["sh", "-c", " java -jar /app/app-fastfood-1.jar"]
+WORKDIR /code
+COPY ./app /code/app
 
+RUN wget https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem
+RUN mv global-bundle.pem app/global-bundle.pem
+
+CMD ["sh", "-c", "java -jar /code/app/app-fastfood-producao.jar"]
