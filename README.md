@@ -4,10 +4,11 @@ Seja bem vindo(a)!
 
 ## Desenvolvedores
  
- - [Caike Burgos](https://github.com/caikeburgos)
- - [Pedro Ramalho](https://github.com/pedroph23)
- - [Marcus Gomes](https://github.com/mvgv)
- - [Maria Eulina Melo](https://github.com/xLinaMeloox)
+ - [Caio Cezar](https://github.com/Nocctis-90)
+ - [Israel Sifoleli](https://github.com/Nocctis-90)
+ - [Jonas Monteiro](https://github.com/Megajns)
+ - [José Vitor](https://github.com/Nocctis-90)
+ - [Raul Munhoz](https://github.com/Nocctis-90)
 
  
 ## Ferramentas
